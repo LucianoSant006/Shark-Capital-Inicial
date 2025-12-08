@@ -4,47 +4,39 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Shark Capital Inteligente - Proteção Patrimonial e Inteligência Financeira.">
     <title>Shark Capital Inteligente | Seguros & Tecnologia</title>
     
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-    <script src="https://unpkg.com/scrollreveal" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js" defer></script>
+<nav>
+    <a href="#" class="brand">
+        <div class="logo-circle">
+            <img src="imgs/shark_capital_inteligente-removebg-preview.png" alt="Shark Capital Logo" class="nav-logo">
+        </div>
+    </a>
 
-    <script src="script.js" defer></script> 
-</head>
-
-<body>
-    <nav>
-     <a href="#" class="brand">
-    <div class="logo-circle"> <img src="imgs/shark_capital_inteligente-removebg-preview.png" alt="Shark Capital Logo" class="nav-logo">
+    <div class="menu">
+        <div class="close-btn-container">
+            <i class="fas fa-times close-btn"></i>
+        </div>
+        
+        <a href="#home">Início</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#solucoes">Soluções</a>
+        <a href="#software" class="highlight-link">Software</a>
+        <a href="#eventos">Palestras</a>
+        <a href="#contato">Contato</a>
     </div>
-</a>
 
-        <div class="menu">
-            <div class="btn">
-                <i class="fas fa-times close-btn"></i>
-            </div>
-            <a href="#home">Início</a>
-            <a href="#sobre">Sobre</a>
-            <a href="#solucoes">Soluções</a>
-            <a href="#software" class="highlight-link">Software</a>
-            <a href="#eventos">Palestras</a>
-            <a href="#contato">Contato</a>
-        </div>
+    <button class="btn-cta" onclick="location.href='#contato'">
+        Agendar Consultoria
+    </button>
 
-        <button class="btn-cta" onclick="location.href='#contato'">
-            Agendar Consultoria
-        </button>
-
-        <div class="btn">
-            <i class="fas fa-bars menu-btn"></i>
-        </div>
-    </nav>
+    <div class="menu-btn-container"> <i class="fas fa-bars menu-btn"></i>
+    </div>
+</nav>
 
     <main>
         <section class="heropage" id="home">
@@ -58,12 +50,13 @@
                         A união entre a segurança dos melhores planos de saúde e a tecnologia que impulsiona seus resultados.
                     </p>
                     <div class="hero-buttons">
-                        <button class="btn-primary" onclick="location.href='#solucoes'">Conhecer Planos</button>
-                        <button class="btn-secondary" onclick="location.href='#software'">Conhecer o Software</button>
+                        <a href="#solucoes" class="btn-primary">Conhecer Planos</a>
+                        <a href="#software" class="btn-secondary">Conhecer o Software</a>
                     </div>
                 </div>
+                
                 <div class="hero-image">
-                    <img src="imgs/imagem dele.png" alt="CEO Shark Capital Inteligente">
+                    <img src="imgs/imagem dele.png" alt="CEO Shark Capital" loading="lazy">
                 </div>
             </div>
         </section>
@@ -88,7 +81,7 @@
                     </div>
                 </div>
                 <div class="sobre-video">
-                    <video controls poster="imgs/dica nr 1.png">
+                    <video controls playsinline poster="imgs/dica nr 1.png">
                         <source src="WhatsApp Video 2025-12-08 at 10.15.43.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -138,7 +131,7 @@
                         <li><i class="fa-solid fa-check"></i> Controle de Vidas e Sinistros</li>
                         <li><i class="fa-solid fa-check"></i> Automação de Propostas</li>
                     </ul>
-                    <button class="btn-primary">Agendar Demo</button>
+                    <a href="#" class="btn-primary">Agendar Demo</a>
                 </div>
                 <div class="software-mockup">
                     <div class="mockup-screen">
@@ -150,7 +143,8 @@
         </section>
 
         <section class="eventos" id="eventos">
-            <div class="eventos-overlay"></div> <div class="section-header">
+            <div class="eventos-overlay"></div>
+            <div class="section-header">
                 <span class="tag-gold">ON STAGE</span>
                 <h2>Agenda de Palestras</h2>
                 <p>Imersões estratégicas para quem busca o próximo nível.</p>
@@ -160,10 +154,8 @@
                 <div class="glass-card">
                     <div class="card-glow"></div>
                     <div class="date-badge">
-                        <span class="day">15</span>
-                        <span class="month">DEZ</span>
+                        <span class="day">15</span><span class="month">DEZ</span>
                     </div>
-                    
                     <div class="event-content">
                         <div class="event-meta">
                             <span class="badge-type"><i class="fa-solid fa-users"></i> Presencial</span>
@@ -171,18 +163,13 @@
                         </div>
                         <h3>Masterclass: Blindagem Patrimonial</h3>
                         <p>Descubra as estratégias jurídicas e financeiras que os grandes players usam para proteger o legado.</p>
-                        
                         <div class="speaker-row">
-                            <div class="speaker-avatar">
-                                <img src="imgs/imagem dele.png" alt="Speaker"> </div>
+                            <div class="speaker-avatar"><img src="imgs/imagem dele.png" alt="Speaker"></div>
                             <span>Com <strong>Shark Capital</strong></span>
                         </div>
                     </div>
-
                     <div class="event-footer">
-                        <div class="status-bar">
-                            <div class="fill" style="width: 85%"></div>
-                        </div>
+                        <div class="status-bar"><div class="fill" style="width: 85%"></div></div>
                         <span class="status-text">Últimas Vagas</span>
                         <a href="#" class="btn-event">Garantir Lugar <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
@@ -191,10 +178,8 @@
                 <div class="glass-card">
                     <div class="card-glow"></div>
                     <div class="date-badge">
-                        <span class="day">22</span>
-                        <span class="month">JAN</span>
+                        <span class="day">22</span><span class="month">JAN</span>
                     </div>
-                    
                     <div class="event-content">
                         <div class="event-meta">
                             <span class="badge-type online"><i class="fa-solid fa-wifi"></i> Ao Vivo</span>
@@ -202,19 +187,13 @@
                         </div>
                         <h3>Workshop: Vendas de Alto Ticket</h3>
                         <p>O método prático para fechar contratos de seguro acima de 6 dígitos sem depender de indicação.</p>
-                        
                         <div class="speaker-row">
-                            <div class="speaker-avatar">
-                                <img src="imgs/imagem dele.png" alt="Speaker">
-                            </div>
+                            <div class="speaker-avatar"><img src="imgs/imagem dele.png" alt="Speaker"></div>
                             <span>Com <strong>Shark Capital</strong></span>
                         </div>
                     </div>
-
                     <div class="event-footer">
-                        <div class="status-bar">
-                            <div class="fill" style="width: 40%"></div>
-                        </div>
+                        <div class="status-bar"><div class="fill" style="width: 40%"></div></div>
                         <span class="status-text">Lote 1 Disponível</span>
                         <a href="#" class="btn-event">Inscrever-se <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
