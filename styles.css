@@ -1,15 +1,15 @@
 /* =========================================
-   1. CONFIGURAÇÕES GERAIS E VARIÁVEIS
+   1. RESET E VARIÁVEIS
    ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap');
 
 :root {
-    --bg-dark: #0f172a;       /* Azul marinho muito escuro */
-    --bg-card: #1e293b;       /* Azul acinzentado para cards */
-    --accent: #D4AF37;        /* Dourado Shark */
-    --text-light: #f1f5f9;    /* Branco gelo */
-    --text-gray: #94a3b8;     /* Cinza claro */
-    --nav-height: 90px;       /* Altura da navbar */
+    --bg-dark: #0f172a;       /* Azul Escuro */
+    --bg-card: #1e293b;       /* Card */
+    --accent: #D4AF37;        /* Dourado */
+    --text-light: #f1f5f9;    /* Texto Claro */
+    --text-gray: #94a3b8;     /* Texto Cinza */
+    --nav-height: 90px;       /* Altura Navbar */
 }
 
 * {
@@ -33,7 +33,7 @@ html {
 }
 
 /* =========================================
-   2. NAVBAR
+   2. NAVBAR & HEADER
    ========================================= */
 nav {
     position: fixed;
@@ -51,7 +51,6 @@ nav {
     transition: all 0.3s ease;
 }
 
-/* Estado Sticky (ao rolar) */
 nav.sticky {
     background: rgba(15, 23, 42, 1);
     box-shadow: 0 5px 20px rgba(0,0,0,0.5);
@@ -71,9 +70,7 @@ nav.sticky {
     overflow: hidden;
 }
 
-.brand:hover .logo-circle {
-    transform: scale(1.05);
-}
+.brand:hover .logo-circle { transform: scale(1.05); }
 
 .nav-logo {
     max-width: 80%;
@@ -81,7 +78,7 @@ nav.sticky {
     object-fit: contain;
 }
 
-/* Menu Desktop */
+/* Links do Menu Desktop */
 .menu {
     display: flex;
     gap: 30px;
@@ -97,12 +94,11 @@ nav.sticky {
     position: relative;
 }
 
-.menu a:hover, .menu a.highlight-link {
-    color: var(--accent);
-}
+.menu a:hover, .menu a.highlight-link { color: var(--accent); }
 
-/* Botão CTA (Agendar) */
+/* Botão CTA (Agendar) - Visível apenas no Desktop */
 .btn-cta {
+    display: block; /* Padrão Desktop */
     background: var(--accent);
     color: var(--bg-dark);
     border: none;
@@ -115,31 +111,18 @@ nav.sticky {
     font-size: 0.85rem;
 }
 
-.btn-cta:hover {
-    background: white;
-    transform: translateY(-2px);
-}
+.btn-cta:hover { background: white; transform: translateY(-2px); }
 
-/* IMPORTANTE: Botões Mobile escondidos no Desktop */
-.menu-btn, .close-btn { 
-    display: none; 
-}
-/* =========================================
-   REGRAS DE VISIBILIDADE DOS ÍCONES
-   ========================================= */
+/* --- CONTROLE DE VISIBILIDADE (CRUCIAL) --- */
 
-/* Por padrão (Desktop), esconde o hambúrguer e o X */
-.menu-btn, 
-.close-btn, 
-.menu-btn-container, 
+/* No DESKTOP, esses itens DEVEM sumir */
+.menu-btn,
+.menu-btn-container,
+.close-btn,
 .close-btn-container {
-    display: none; 
+    display: none !important; /* O !important garante que nada sobrescreva isso no PC */
 }
 
-/* Garante que o CTA aparece no Desktop */
-.btn-cta {
-    display: block; 
-}
 /* =========================================
    3. HERO SECTION
    ========================================= */
@@ -148,7 +131,6 @@ nav.sticky {
     display: flex;
     align-items: center;
     position: relative;
-    /* Espaço para o header não cobrir o texto */
     padding: calc(var(--nav-height) + 40px) 5% 40px; 
 }
 
@@ -170,49 +152,20 @@ nav.sticky {
 }
 
 .hero-headlines { flex: 1; }
-
-.hero-headlines h1 {
-    font-size: 3.5rem;
-    line-height: 1.1;
-    margin-bottom: 20px;
-}
-
-.hero-headlines p {
-    font-size: 1.2rem;
-    color: var(--text-gray);
-    margin-bottom: 40px;
-    max-width: 500px;
-}
+.hero-headlines h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; }
+.hero-headlines p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 40px; max-width: 500px; }
 
 .hero-buttons { display: flex; gap: 20px; }
 
-/* Botões Estilizados */
 .btn-primary, .btn-secondary {
-    display: inline-block;
-    padding: 15px 30px;
-    cursor: pointer;
-    transition: 0.3s;
-    text-align: center;
-    text-decoration: none;
+    display: inline-block; padding: 15px 30px; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none;
 }
-
-.btn-primary {
-    background: transparent;
-    border: 2px solid var(--accent);
-    color: var(--accent);
-    font-weight: 700;
-}
+.btn-primary { background: transparent; border: 2px solid var(--accent); color: var(--accent); font-weight: 700; }
 .btn-primary:hover { background: var(--accent); color: var(--bg-dark); }
-
-.btn-secondary {
-    background: rgba(255,255,255,0.1);
-    border: none;
-    color: white;
-    font-weight: 600;
-}
+.btn-secondary { background: rgba(255,255,255,0.1); border: none; color: white; font-weight: 600; }
 .btn-secondary:hover { background: white; color: var(--bg-dark); }
 
-/* Imagem do Hero (Desktop) */
+/* Imagem do Hero (Padrão Desktop) */
 .hero-image {
     flex: 1;
     display: flex;
@@ -221,28 +174,20 @@ nav.sticky {
 
 .hero-image img {
     width: 100%;
-    max-width: 450px;
+    max-width: 450px; /* Tamanho no Desktop */
     height: auto;
     filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
     border-bottom: 4px solid var(--accent);
 }
 
 /* =========================================
-   4. SEÇÕES GERAIS
+   4. OUTRAS SEÇÕES (Cards, Eventos, etc)
    ========================================= */
-.sobre, .solucoes, .software-showcase, .eventos {
-    padding: 80px 5%;
-}
+.sobre, .solucoes, .software-showcase, .eventos { padding: 80px 5%; }
 
 /* Sobre */
 .sobre { background: var(--bg-card); }
-.sobre-container {
-    display: flex;
-    gap: 50px;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: center;
-}
+.sobre-container { display: flex; gap: 50px; max-width: 1200px; margin: 0 auto; align-items: center; }
 .sobre-text { flex: 1; }
 .sobre h6 { color: var(--accent); letter-spacing: 2px; margin-bottom: 10px; }
 .sobre h2 { font-size: 2.5rem; margin-bottom: 20px; }
@@ -253,29 +198,12 @@ nav.sticky {
 .sobre-video video { width: 100%; border-radius: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
 .caption { text-align: center; font-size: 0.8rem; margin-top: 10px; color: var(--text-gray); }
 
-/* Soluções (Cards) */
+/* Soluções */
 .section-header { text-align: center; margin-bottom: 60px; }
 .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
-.cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-.card-shark {
-    background: var(--bg-card);
-    padding: 40px;
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 8px;
-    transition: 0.3s;
-    position: relative;
-    overflow: hidden;
-}
-.card-shark::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-    background: var(--accent); transform: scaleX(0); transition: 0.3s; transform-origin: left;
-}
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+.card-shark { background: var(--bg-card); padding: 40px; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; transition: 0.3s; position: relative; overflow: hidden; }
+.card-shark::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--accent); transform: scaleX(0); transition: 0.3s; transform-origin: left; }
 .card-shark:hover::before { transform: scaleX(1); }
 .card-shark:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 .icon-box { font-size: 2.5rem; color: var(--accent); margin-bottom: 20px; }
@@ -283,61 +211,26 @@ nav.sticky {
 .card-shark p { color: var(--text-gray); line-height: 1.5; }
 
 /* Software */
-.software-showcase {
-    background: linear-gradient(90deg, #000 0%, #111 100%);
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
-}
-.software-content {
-    display: flex; align-items: center; gap: 60px; max-width: 1200px; margin: 0 auto;
-}
+.software-showcase { background: linear-gradient(90deg, #000 0%, #111 100%); border-top: 1px solid #333; border-bottom: 1px solid #333; }
+.software-content { display: flex; align-items: center; gap: 60px; max-width: 1200px; margin: 0 auto; }
 .tag { background: rgba(212, 175, 55, 0.2); color: var(--accent); padding: 5px 10px; font-size: 0.8rem; font-weight: 700; border-radius: 4px; }
 .features-list { list-style: none; margin: 30px 0; }
 .features-list li { margin-bottom: 15px; font-size: 1.1rem; }
 .features-list i { color: var(--accent); margin-right: 10px; }
-.software-mockup {
-    flex: 1; background: #1e293b; height: 400px; border-radius: 20px; border: 8px solid #333;
-    display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(212, 175, 55, 0.1);
-}
+.software-mockup { flex: 1; background: #1e293b; height: 400px; border-radius: 20px; border: 8px solid #333; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(212, 175, 55, 0.1); }
 .mockup-screen i { font-size: 4rem; margin-bottom: 10px; color: #555; }
 
-/* Eventos (Glass Cards) */
-.eventos {
-    position: relative;
-    background: url('https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-    background-attachment: fixed;
-}
-.eventos-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, var(--bg-dark) 0%, rgba(15, 23, 42, 0.8) 50%, var(--bg-dark) 100%);
-    z-index: 1;
-}
+/* Eventos */
+.eventos { position: relative; background: url('https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover; background-attachment: fixed; }
+.eventos-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, var(--bg-dark) 0%, rgba(15, 23, 42, 0.8) 50%, var(--bg-dark) 100%); z-index: 1; }
 .section-header, .timeline-premium { position: relative; z-index: 2; }
-.tag-gold {
-    color: var(--accent); font-size: 0.8rem; font-weight: 800; letter-spacing: 2px;
-    border: 1px solid var(--accent); padding: 5px 15px; border-radius: 20px; text-transform: uppercase;
-    margin-bottom: 15px; display: inline-block;
-}
-.timeline-premium {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px; max-width: 1200px; margin: 40px auto 0;
-}
-.glass-card {
-    background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 30px;
-    position: relative; overflow: hidden; transition: all 0.4s ease; display: flex; flex-direction: column;
-}
+.tag-gold { color: var(--accent); font-size: 0.8rem; font-weight: 800; letter-spacing: 2px; border: 1px solid var(--accent); padding: 5px 15px; border-radius: 20px; text-transform: uppercase; margin-bottom: 15px; display: inline-block; }
+.timeline-premium { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; max-width: 1200px; margin: 40px auto 0; }
+.glass-card { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 30px; position: relative; overflow: hidden; transition: all 0.4s ease; display: flex; flex-direction: column; }
 .glass-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); }
-.card-glow {
-    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 60%);
-    opacity: 0; transition: 0.4s; pointer-events: none;
-}
+.card-glow { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 60%); opacity: 0; transition: 0.4s; pointer-events: none; }
 .glass-card:hover .card-glow { opacity: 1; }
-.date-badge {
-    background: linear-gradient(135deg, var(--accent), #b8860b); width: 70px; padding: 10px 0;
-    border-radius: 10px; text-align: center; color: #0f172a; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); margin-bottom: 20px;
-}
+.date-badge { background: linear-gradient(135deg, var(--accent), #b8860b); width: 70px; padding: 10px 0; border-radius: 10px; text-align: center; color: #0f172a; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); margin-bottom: 20px; }
 .date-badge .day { display: block; font-size: 1.8rem; font-weight: 800; line-height: 1; }
 .date-badge .month { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
 .event-content h3 { font-size: 1.4rem; margin: 15px 0 10px; color: white; }
@@ -345,9 +238,7 @@ nav.sticky {
 .event-meta { display: flex; gap: 15px; font-size: 0.85rem; color: #94a3b8; }
 .badge-type { color: var(--accent); font-weight: 600; display: flex; align-items: center; gap: 5px; }
 .badge-type.online { color: #4ade80; }
-.speaker-row {
-    display: flex; align-items: center; gap: 10px; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1);
-}
+.speaker-row { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .speaker-avatar img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover; }
 .speaker-row span { font-size: 0.9rem; color: #cbd5e1; }
 .speaker-row strong { color: white; }
@@ -355,68 +246,55 @@ nav.sticky {
 .status-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-bottom: 8px; overflow: hidden; }
 .status-bar .fill { height: 100%; background: var(--accent); border-radius: 2px; }
 .status-text { font-size: 0.75rem; color: var(--accent); display: block; margin-bottom: 15px; }
-.btn-event {
-    display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 12px 20px;
-    background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; text-decoration: none;
-    border-radius: 6px; font-weight: 600; transition: 0.3s;
-}
+.btn-event { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 12px 20px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; transition: 0.3s; }
 .btn-event:hover { background: var(--accent); color: #0f172a; border-color: var(--accent); }
 
 /* Footer */
 footer { background: black; padding: 60px 5% 20px; border-top: 1px solid #333; }
-.footer-content {
-    display: flex; justify-content: space-between; max-width: 1200px;
-    margin: 0 auto 40px; flex-wrap: wrap; gap: 30px;
-}
+.footer-content { display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto 40px; flex-wrap: wrap; gap: 30px; }
 .social-links a { color: white; font-size: 1.5rem; margin-right: 20px; transition: 0.3s; }
 .social-links a:hover { color: var(--accent); }
 .copyright { text-align: center; color: #555; font-size: 0.8rem; border-top: 1px solid #222; padding-top: 20px; }
 
 /* =========================================
-   5. RESPONSIVIDADE (MOBILE)
+   5. RESPONSIVIDADE (MOBILE - 900px ou menos)
    ========================================= */
 
-/* Tablets (1024px) */
+/* Tablets ajustam layout */
 @media (max-width: 1024px) {
-    .hero-content {
-        flex-direction: column-reverse; /* Imagem em cima, texto em baixo */
-        text-align: center;
-        gap: 30px;
-    }
+    .hero-content { flex-direction: column-reverse; text-align: center; gap: 30px; }
     .hero-headlines h1 { font-size: 2.5rem; }
-    .hero-headlines p { margin: 0 auto 30px; }
     .hero-buttons { justify-content: center; flex-direction: column; width: 100%; }
     .btn-primary, .btn-secondary { width: 100%; }
-    
-    /* Imagem menor para não estourar a tela */
     .hero-image img { width: 60%; max-width: 300px; margin-bottom: 20px; }
-    
     .sobre-container, .software-content { flex-direction: column; }
     .timeline-premium { grid-template-columns: 1fr; }
     .footer-content { flex-direction: column; text-align: center; }
     .social-links { justify-content: center; display: flex; }
 }
 
-/* Celulares (900px e menor) - MENU LATERAL ATIVO */
+/* MOBILE (Habilita menu lateral e ícones) */
 @media (max-width: 900px) {
-    /* Mostra o menu hambúrguer no celular */
-    .menu-btn { 
-        display: block; 
+    
+    /* MOSTRA OS ÍCONES MOBILE (e força display block) */
+    .menu-btn,
+    .menu-btn-container { 
+        display: block !important; 
         font-size: 1.8rem; 
         color: var(--accent); 
         cursor: pointer;
     }
-    
-    /* Esconde o botão de agendar no celular */
+
+    /* ESCONDE O BOTÃO DE AGENDAR DO DESKTOP */
     .btn-cta { 
-        display: none; 
+        display: none !important; 
     } 
 
-    /* Estilo do Menu Lateral (Drawer) */
+    /* ESTILO DO MENU LATERAL (DRAWER) */
     .menu {
         position: fixed;
         top: 0;
-        right: -100%; /* Começa escondido fora da tela */
+        right: -100%; /* Escondido */
         width: 80%;
         height: 100vh;
         background: rgba(15, 23, 42, 0.98);
@@ -427,75 +305,20 @@ footer { background: black; padding: 60px 5% 20px; border-top: 1px solid #333; }
         gap: 40px;
         transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+        display: flex; /* Garante que o flexbox funcione */
     }
     
-    /* Classe .active adicionada pelo JS */
-    .menu.active { right: 0; }
-    
-    .menu a { font-size: 1.5rem; }
-    
-    /* Botão fechar (X) dentro do menu mobile */
-    .close-btn {
-        display: block;
-        font-size: 2rem;
-        color: var(--text-light);
-        position: absolute;
-        top: 25px; right: 30px;
-    }
-
-    /* === AJUSTE FINO DA IMAGEM NO MOBILE === */
-    .hero-image {
-        margin-bottom: 20px;
-    }
-
-    .hero-image img {
-        width: 70%;       /* Ocupa 70% da largura da tela */
-        max-width: 280px; /* Trava tamanho máximo para não ficar gigante */
-    }
-}
-@media (max-width: 900px) {
-    
-    /* 1. MOSTRAR OS ÍCONES MOBILE */
-    .menu-btn, .menu-btn-container { 
-        display: block; /* Faz o hambúrguer aparecer */
-        font-size: 1.8rem; 
-        color: var(--accent); 
-        cursor: pointer;
-    }
-    
-    /* 2. ESCONDER O CTA DO DESKTOP */
-    .btn-cta { 
-        display: none; /* Some com o botão 'Agendar' no celular */
-    } 
-
-    /* 3. MENU LATERAL (DRAWER) */
-    .menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        height: 100vh;
-        background: rgba(15, 23, 42, 0.98);
-        backdrop-filter: blur(15px);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 40px;
-        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-        display: flex; /* Garante que é flex para alinhar os links */
-    }
-    
-    /* Quando o JS adiciona a classe .active */
+    /* Classe ativa via JS */
     .menu.active { 
         right: 0; 
     }
     
     .menu a { font-size: 1.5rem; }
     
-    /* 4. BOTÃO FECHAR (X) DENTRO DO MENU */
-    .close-btn, .close-btn-container {
-        display: block; /* Faz o X aparecer */
+    /* BOTÃO FECHAR (X) DENTRO DO MENU */
+    .close-btn,
+    .close-btn-container {
+        display: block !important; 
         font-size: 2rem;
         color: var(--text-light);
         position: absolute;
@@ -504,9 +327,21 @@ footer { background: black; padding: 60px 5% 20px; border-top: 1px solid #333; }
         cursor: pointer;
     }
 
-    /* 5. AJUSTE DA IMAGEM */
+    /* === AJUSTE FINO DA IMAGEM NO MOBILE === */
+    .hero-content {
+        flex-direction: column-reverse; /* Imagem em cima, texto em baixo */
+        gap: 20px;
+    }
+
+    .hero-image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
     .hero-image img {
-        width: 70%;
-        max-width: 280px;
+        width: 70%;         /* Ocupa 70% da tela */
+        max-width: 280px;   /* Trava tamanho máximo */
+        margin-bottom: 10px;
     }
 }
