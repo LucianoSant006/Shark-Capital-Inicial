@@ -1,230 +1,668 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Shark Capital Inteligente - Proteção Patrimonial e Inteligência Financeira.">
-    <title>Shark Capital Inteligente | Seguros & Tecnologia</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shark Capital | Especialista em Seguro de Vida</title>
     
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <!-- Dependências Externas -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-<nav>
-    <a href="#" class="brand">
-        <div class="logo-circle">
-            <img src="imgs/shark_capital_inteligente-removebg-preview.png" alt="Shark Capital Logo" class="nav-logo">
-        </div>
-    </a>
+    <!-- Configuração Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'] },
+                    colors: {
+                        gold: '#D4AF37',
+                        'gold-hover': '#B8860B',
+                        dark: '#0f172a',
+                        card: '#1e293b',
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-    <div class="menu">
-        <div class="close-btn-container">
-            <i class="fas fa-times close-btn"></i>
-        </div>
+    <!-- Estilos Customizados -->
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar Premium */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+
+        /* Range Slider Dourado */
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; height: 20px; width: 20px;
+            border-radius: 50%; background: #D4AF37; cursor: pointer;
+            margin-top: -8px; box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px; cursor: pointer;
+            background: #334155; border-radius: 2px;
+        }
         
-        <a href="#home">Início</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#solucoes">Soluções</a>
-        <a href="#software" class="highlight-link">Software</a>
-        <a href="#eventos">Palestras</a>
-        <a href="#contato">Contato</a>
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Gradiente de Texto */
+        .text-gradient-gold {
+            background: linear-gradient(to right, #D4AF37, #FDE68A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Classe Específica para a Logo Circular - Preenchendo 100% */
+        .brand-logo {
+            background-image: url('imgs/shark_capital_inteligente-removebg-preview.png');
+            background-size: 100% 100%; /* ESTICA A IMAGEM PARA PREENCHER TUDO */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: white;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold selection:text-dark">
+
+    <!-- 1. HEADER & NAVIGATION -->
+    <header class="fixed top-0 w-full z-50 transition-all duration-300" id="main-header">
+        
+        <!-- Ticker Tape -->
+        <div class="bg-slate-900 border-b border-white/10 overflow-hidden h-10 flex items-center">
+            <div class="animate-marquee flex whitespace-nowrap gap-8 px-4 w-full" id="ticker-content">
+                <!-- Conteúdo injetado via JS -->
+            </div>
+        </div>
+
+        <!-- Navbar -->
+        <nav class="w-full py-6 transition-all duration-300" id="navbar">
+            <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                
+                <!-- Logo Refatorada (Circular) -->
+                <div class="flex items-center gap-3 group cursor-pointer">
+                    <!-- Container da Logo com Imagem de Fundo (100% Filled) -->
+                    <div class="w-14 h-14 rounded-full border-2 border-gold shadow-[0_0_15px_rgba(212,175,55,0.3)] brand-logo transition-transform group-hover:scale-105"></div>
+                    
+                    <span class="text-xl font-extrabold tracking-tight text-white group-hover:text-gold transition-colors leading-none">
+                        SHARK <br/><span class="text-gold group-hover:text-white transition-colors text-sm font-bold tracking-widest">CAPITAL</span>
+                    </span>
+                </div>
+
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wide">
+                    <a href="#home" class="hover:text-gold transition-colors">INÍCIO</a>
+                    <a href="#protecao" class="text-red-400 hover:text-red-300 transition-colors flex items-center gap-1">
+                        <i data-lucide="shield-alert" class="w-4 h-4"></i> POR QUE TER?
+                    </a>
+                    <a href="#simulador" class="hover:text-gold transition-colors">RESGATÁVEL</a>
+                    <a href="#solucoes" class="hover:text-gold transition-colors">SOLUÇÕES</a>
+                    <a href="#contato" class="px-6 py-2 border border-gold text-gold hover:bg-gold hover:text-dark font-bold rounded transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-gold/20">
+                        Cotar Seguro
+                    </a>
+                </div>
+
+                <!-- Menu Mobile Toggle -->
+                <button class="md:hidden text-white hover:text-gold transition-colors" id="mobile-menu-btn">
+                    <i data-lucide="menu" class="w-8 h-8"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="fixed inset-0 bg-dark/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 text-xl font-bold transform translate-x-full transition-transform duration-300" id="mobile-menu">
+        <button class="absolute top-8 right-8 text-white hover:text-red-400 transition-colors" id="close-menu-btn">
+            <i data-lucide="x" class="w-10 h-10"></i>
+        </button>
+        <a href="#home" class="mobile-link hover:text-gold transition-colors">Início</a>
+        <a href="#protecao" class="text-red-400 mobile-link hover:text-red-300 transition-colors">Riscos Reais</a>
+        <a href="#simulador" class="mobile-link hover:text-gold transition-colors">Vida Resgatável</a>
+        <a href="#solucoes" class="mobile-link hover:text-gold transition-colors">Soluções</a>
+        <a href="#contato" class="px-8 py-3 bg-gold text-dark font-bold rounded mobile-link hover:bg-white transition-colors">Consultoria Gratuita</a>
     </div>
 
-    <button class="btn-cta" onclick="location.href='#contato'">
-        Agendar Consultoria
-    </button>
+    <!-- 2. HERO SECTION -->
+    <section id="home" class="relative min-h-screen flex items-center pt-32 px-6 overflow-hidden">
+        <!-- Efeito de Fundo -->
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2"></div>
+        </div>
 
-    <div class="menu-btn-container">
-        <i class="fas fa-bars menu-btn"></i>
-    </div>
-</nav>
-
-    <main>
-        <section class="heropage" id="home">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <div class="hero-headlines">
-                    <h1 class="reveal-type" data-bg-color="#cccccc" data-fg-color="white">
-                        Proteção Patrimonial & Inteligência Financeira
-                    </h1>
-                    <p>
-                        A união entre a segurança dos melhores planos de saúde e a tecnologia que impulsiona seus resultados.
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="#solucoes" class="btn-primary">Conhecer Planos</a>
-                        <a href="#software" class="btn-secondary">Conhecer o Software</a>
-                    </div>
+        <div class="max-w-7xl mx-auto w-full z-10 grid md:grid-cols-2 gap-12 items-center">
+            <!-- Texto Principal -->
+            <div class="space-y-8 animate-fade-in-up order-2 md:order-1 text-center md:text-left">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs font-bold tracking-widest uppercase mx-auto md:mx-0">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Especialista em Seguro de Vida
                 </div>
                 
-                <div class="hero-image">
-                    <img src="imgs/imagem dele.png" alt="CEO Shark Capital" loading="lazy">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                    Não Deixe Seu Legado <br/>
+                    <span class="text-gradient-gold">À Mercê da Sorte</span>
+                </h1>
+                
+                <p class="text-slate-400 text-lg leading-relaxed max-w-lg mx-auto md:mx-0 border-l-0 md:border-l-2 border-gold pl-0 md:pl-6">
+                    A blindagem patrimonial definitiva. Garanta liquidez imediata e sucessão isenta de inventário com nossas estratégias de Seguro High Ticket.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#contato" class="px-8 py-4 bg-gold text-dark font-bold rounded shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:bg-white hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
+                        Blindar Meu Patrimônio <i data-lucide="lock" class="w-5 h-5"></i>
+                    </a>
+                    <button class="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white font-bold rounded hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i data-lucide="play" class="w-5 h-5 fill-current"></i> Ver Vídeo
+                    </button>
                 </div>
             </div>
-        </section>
 
-        <section class="sobre" id="sobre">
-            <div class="sobre-container">
-                <div class="sobre-text">
-                    <h6>QUEM SOMOS</h6>
-                    <h2>Inteligência a favor do seu patrimônio</h2>
-                    <p>
-                        Não vendemos apenas seguros, entregamos tranquilidade e estratégia. Com anos de experiência no mercado financeiro e de saúde, ajudamos empresários e autônomos a blindarem seu capital contra imprevistos.
-                    </p>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <h3>+1000</h3>
-                            <p>Vidas Protegidas</p>
+            <!-- Card Interativo 3D -->
+            <div class="relative order-1 md:order-2 perspective-1000">
+                <div class="relative z-10 bg-card/90 backdrop-blur-xl rounded-2xl border border-slate-700 shadow-2xl overflow-hidden transform md:rotate-y-12 md:hover:rotate-0 transition-transform duration-700 ease-out group max-w-md mx-auto">
+                    <div class="bg-slate-900 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <div class="stat-item">
-                            <h3>Software</h3>
-                            <p>Exclusivo</p>
+                        <div class="text-xs font-mono text-green-400 animate-pulse">● STATUS: PROTEGIDO</div>
+                    </div>
+
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <p class="text-slate-400 text-xs uppercase tracking-wider">Capital Segurado</p>
+                                <h3 class="text-3xl font-bold text-white mt-1">R$ 5.000.000</h3>
+                            </div>
+                            <div class="bg-green-500/10 text-green-400 px-2 py-1 rounded text-xs font-bold border border-green-500/20">
+                                APÓLICE VITALÍCIA
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Feature 1 -->
+                            <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-gold border border-gold/20">
+                                    <i data-lucide="umbrella" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white font-bold text-sm">Proteção Familiar</p>
+                                    <p class="text-slate-500 text-xs">Isento de Imposto de Renda</p>
+                                </div>
+                            </div>
+
+                            <!-- Feature 2 -->
+                            <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-gold border border-gold/20">
+                                    <i data-lucide="activity" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white font-bold text-sm">Doenças Graves</p>
+                                    <p class="text-slate-500 text-xs">Adiantamento em Vida (DGA)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 p-4 bg-gold/5 border border-gold/30 rounded-lg">
+                                <p class="text-gold text-xs font-bold mb-1 flex items-center gap-1"><i data-lucide="star" class="w-3 h-3"></i> DIFERENCIAL SHARK</p>
+                                <p class="text-slate-300 text-xs leading-relaxed">Sucessão patrimonial sem custos de inventário e advogados. O dinheiro cai na conta dos beneficiários em até 30 dias.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="sobre-video">
-                    <video controls playsinline poster="imgs/dica nr 1.png">
-                        <source src="WhatsApp Video 2025-12-08 at 10.15.43.mp4" type="video/mp4">
-                        Seu navegador não suporta vídeos.
-                    </video>
-                    <p class="caption">Entenda a importância da Diária por Internação Hospitalar (DIH)</p>
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="solucoes" id="solucoes">
-            <div class="section-header">
-                <h2>Soluções Corporativas e Individuais</h2>
-                <p>O que todo empresário precisa saber para proteger seu negócio e família.</p>
+    <!-- 3. SEÇÃO RISCOS (ARMADILHAS) -->
+    <section id="protecao" class="py-20 bg-slate-950 border-y border-white/5 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-red-400 font-bold tracking-widest text-sm mb-2 uppercase flex items-center justify-center gap-2">
+                    <i data-lucide="alert-triangle" class="w-4 h-4"></i> Realidade do Mercado
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Você é o Ativo Mais Valioso</h2>
+                <p class="text-slate-400">
+                    Se você faltar hoje, quanto tempo sua família mantém o padrão de vida atual? <span class="text-red-400 font-bold">Não deixe dívidas de herança.</span>
+                </p>
             </div>
 
-            <div class="cards-grid">
-                <div class="card-shark">
-                    <div class="icon-box"><i class="fa-solid fa-shield-heart"></i></div>
-                    <h3>Seguro de Vida em Grupo</h3>
-                    <p>Custo baixo, impacto alto. Uma das proteções mais acessíveis para colaboradores que retém talentos e aumenta o engajamento.</p>
-                </div>
-
-                <div class="card-shark">
-                    <div class="icon-box"><i class="fa-solid fa-file-contract"></i></div>
-                    <h3>Invalidez & Doenças</h3>
-                    <p>Cobertura essencial para quem é autônomo. Se você parar, quem paga a conta? Garanta sua renda mesmo afastado.</p>
-                </div>
-
-                <div class="card-shark">
-                    <div class="icon-box"><i class="fa-solid fa-hospital-user"></i></div>
-                    <h3>Diária por Internação</h3>
-                    <p>Não dependa apenas do plano de saúde. A DIH cobre as perdas financeiras (lucro cessante) enquanto você se recupera.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="software-showcase" id="software">
-            <div class="software-content">
-                <div class="software-text">
-                    <span class="tag">INOVAÇÃO</span>
-                    <h2>SHARK SYSTEM <span class="accent">PRO</span></h2>
-                    <h3>A tecnologia que desenvolvemos para otimizar sua gestão.</h3>
-                    <p>
-                        Cansado de processos manuais? Desenvolvi pessoalmente uma ferramenta robusta para gestão de apólices, CRM de clientes e automação de renovações.
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card rounded-2xl p-6 border-red-500/20 hover:border-red-500/50 bg-red-900/5 group">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                        <i data-lucide="gavel" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Inventário Bloqueado</h3>
+                    <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+                        Seus bens podem ficar travados na justiça por anos, com custos de até 20% do patrimônio. O Seguro tem liquidez imediata.
                     </p>
-                    <ul class="features-list">
-                        <li><i class="fa-solid fa-check"></i> Dashboard Intuitivo</li>
-                        <li><i class="fa-solid fa-check"></i> Controle de Vidas e Sinistros</li>
-                        <li><i class="fa-solid fa-check"></i> Automação de Propostas</li>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card rounded-2xl p-6 border-red-500/20 hover:border-red-500/50 bg-red-900/5 group">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                        <i data-lucide="stethoscope" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Diagnóstico Inesperado</h3>
+                    <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+                        O plano de saúde paga o hospital, mas quem paga suas contas pessoais? Receba indenização em vida no diagnóstico de câncer, infarto ou AVC.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card rounded-2xl p-6 border-red-500/20 hover:border-red-500/50 bg-red-900/5 group">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4 text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
+                        <i data-lucide="briefcase" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-white">Sucessão Empresarial</h3>
+                    <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+                        Garanta capital para que seus sócios comprem sua parte da empresa, protegendo o valor para seus herdeiros sem destruir o negócio.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SIMULADOR (WHOLE LIFE) -->
+    <section id="simulador" class="py-24 px-6 relative overflow-hidden bg-dark">
+        <!-- Glow lateral -->
+        <div class="absolute top-1/2 left-0 w-[300px] h-[300px] bg-gold rounded-full opacity-5 blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Texto Explicativo -->
+            <div class="space-y-8 z-10">
+                <div>
+                    <span class="text-gold font-bold tracking-widest text-sm mb-2 block">SEGURO RESGATÁVEL (WHOLE LIFE)</span>
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Proteção que Vira Investimento</h2>
+                    <p class="text-slate-400 text-lg leading-relaxed">
+                        Diferente do seguro tradicional ("aluguel"), no modelo <strong>Whole Life</strong> parte do seu prêmio acumula e rende acima da inflação (IPCA+), formando uma reserva que você pode resgatar no futuro.
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl bg-slate-900/80 space-y-8 border border-white/10">
+                    <!-- Slider 1 -->
+                    <div>
+                        <div class="flex justify-between mb-2 text-sm font-semibold">
+                            <span class="text-slate-300">Aporte Mensal</span>
+                            <span class="text-gold font-mono text-lg" id="val-monthly">R$ 1.000</span>
+                        </div>
+                        <input type="range" id="input-monthly" min="500" max="10000" step="100" value="1000">
+                    </div>
+
+                    <!-- Slider 2 -->
+                    <div>
+                        <div class="flex justify-between mb-2 text-sm font-semibold">
+                            <span class="text-slate-300">Tempo de Acumulação</span>
+                            <span class="text-gold font-mono text-lg" id="val-years">20 anos</span>
+                        </div>
+                        <input type="range" id="input-years" min="10" max="40" step="1" value="20">
+                    </div>
+
+                    <button id="btn-update-chart" class="w-full py-3.5 bg-gold text-dark font-bold rounded hover:bg-white hover:text-dark transition-all duration-300 flex justify-center items-center gap-2 transform hover:-translate-y-1">
+                        <i data-lucide="refresh-cw" class="w-5 h-5"></i> Recalcular Projeção
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gráfico -->
+            <div class="relative h-[450px] bg-slate-800/50 rounded-2xl p-4 border border-white/5 shadow-2xl backdrop-blur-sm">
+                <canvas id="financeChart"></canvas>
+                <!-- Resultado Flutuante -->
+                <div class="absolute -bottom-6 right-4 md:-right-4 bg-gold text-dark p-6 rounded-xl shadow-xl shadow-gold/20 hover:scale-105 transition-transform z-20 border border-white/20">
+                    <p class="text-[10px] font-bold uppercase tracking-wider mb-1 opacity-80">Resgate Disponível (Estimado)</p>
+                    <h3 class="text-3xl font-extrabold" id="diff-value">R$ 0</h3>
+                    <p class="text-[10px] font-medium mt-1 opacity-80">+ Proteção Vitalícia de R$ 2M</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SOLUÇÕES -->
+    <section id="solucoes" class="py-24 bg-slate-900 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Soluções Personalizadas</h2>
+                <p class="text-slate-400">Trabalhamos com as maiores seguradoras globais (Prudential, MetLife, Omint) para desenhar a apólice perfeita para seu momento de vida.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Solução 1 -->
+                <div class="glass-card rounded-2xl p-8 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-gold/10 rounded-lg flex items-center justify-center mb-6 text-gold group-hover:bg-gold group-hover:text-dark transition-colors">
+                        <i data-lucide="heart-handshake" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Seguro de Vida Individual</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Apólices desenhadas sob medida. Cobertura para morte, invalidez (IPA) e Doenças Graves (DG) com capitais elevados.
+                    </p>
+                </div>
+
+                <!-- Solução 2 -->
+                <div class="glass-card rounded-2xl p-8 hover:-translate-y-2 border-gold/40 bg-slate-800/60 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-gold text-dark text-xs font-bold rounded-bl-lg shadow-lg">PREMIUM</div>
+                    <div class="w-14 h-14 bg-gold/10 rounded-lg flex items-center justify-center mb-6 text-gold group-hover:bg-gold group-hover:text-dark transition-colors">
+                        <i data-lucide="gem" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Seguro Resgatável</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Proteção que você não perde. Se não usar, resgata o valor corrigido pelo IPCA + Juros no futuro. Ideal para sucessão.
+                    </p>
+                </div>
+
+                <!-- Solução 3 -->
+                <div class="glass-card rounded-2xl p-8 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-gold/10 rounded-lg flex items-center justify-center mb-6 text-gold group-hover:bg-gold group-hover:text-dark transition-colors">
+                        <i data-lucide="building" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Seguro Empresarial</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Proteja a empresa da perda de sócios ou executivos chave (Key Man). Capital para comprar a parte dos herdeiros.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FOOTER COMPLETO -->
+    <footer id="contato" class="bg-black pt-24 pb-12 border-t border-white/10 text-slate-400">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Coluna 1: Marca -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full border border-gold brand-logo"></div>
+                        <h3 class="text-2xl font-bold text-white tracking-tighter">SHARK <span class="text-gold">CAPITAL</span></h3>
+                    </div>
+                    <p class="text-sm leading-relaxed">
+                        Transformamos o mercado de seguros através de inteligência financeira e proteção patrimonial de alto nível. Seu futuro é nosso compromisso.
+                    </p>
+                    <div class="text-xs font-mono text-slate-500">
+                        CNPJ: 00.000.000/0001-00<br>
+                        SUSEP: 123456789
+                    </div>
+                </div>
+
+                <!-- Coluna 2: Soluções -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg">Soluções</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-gold transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Seguro Whole Life</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Seguro Term Life</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Sucessão Empresarial</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Blindagem Patrimonial</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Key Man (Homem Chave)</a></li>
                     </ul>
-                    <a href="#" class="btn-primary">Agendar Demo</a>
-                </div>
-                <div class="software-mockup">
-                    <div class="mockup-screen">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <p>Interface do Sistema</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="eventos" id="eventos">
-            <div class="eventos-overlay"></div>
-            <div class="section-header">
-                <span class="tag-gold">ON STAGE</span>
-                <h2>Agenda de Palestras</h2>
-                <p>Imersões estratégicas para quem busca o próximo nível.</p>
-            </div>
-
-            <div class="timeline-premium">
-                <div class="glass-card">
-                    <div class="card-glow"></div>
-                    <div class="date-badge">
-                        <span class="day">15</span><span class="month">DEZ</span>
-                    </div>
-                    <div class="event-content">
-                        <div class="event-meta">
-                            <span class="badge-type"><i class="fa-solid fa-users"></i> Presencial</span>
-                            <span class="badge-city">São Paulo, SP</span>
-                        </div>
-                        <h3>Masterclass: Blindagem Patrimonial</h3>
-                        <p>Descubra as estratégias jurídicas e financeiras que os grandes players usam para proteger o legado.</p>
-                        <div class="speaker-row">
-                            <div class="speaker-avatar"><img src="imgs/imagem dele.png" alt="Speaker"></div>
-                            <span>Com <strong>Shark Capital</strong></span>
-                        </div>
-                    </div>
-                    <div class="event-footer">
-                        <div class="status-bar"><div class="fill" style="width: 85%"></div></div>
-                        <span class="status-text">Últimas Vagas</span>
-                        <a href="#" class="btn-event">Garantir Lugar <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
                 </div>
 
-                <div class="glass-card">
-                    <div class="card-glow"></div>
-                    <div class="date-badge">
-                        <span class="day">22</span><span class="month">JAN</span>
-                    </div>
-                    <div class="event-content">
-                        <div class="event-meta">
-                            <span class="badge-type online"><i class="fa-solid fa-wifi"></i> Ao Vivo</span>
-                            <span class="badge-city">Zoom Exclusivo</span>
-                        </div>
-                        <h3>Workshop: Vendas de Alto Ticket</h3>
-                        <p>O método prático para fechar contratos de seguro acima de 6 dígitos sem depender de indicação.</p>
-                        <div class="speaker-row">
-                            <div class="speaker-avatar"><img src="imgs/imagem dele.png" alt="Speaker"></div>
-                            <span>Com <strong>Shark Capital</strong></span>
-                        </div>
-                    </div>
-                    <div class="event-footer">
-                        <div class="status-bar"><div class="fill" style="width: 40%"></div></div>
-                        <span class="status-text">Lote 1 Disponível</span>
-                        <a href="#" class="btn-event">Inscrever-se <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
+                <!-- Coluna 3: Institucional -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg">Institucional</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-gold transition-colors">Sobre a Shark</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Carreiras</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Blog & Insights</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Política de Privacidade</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Termos de Uso</a></li>
+                    </ul>
                 </div>
-            </div>
-        </section>
 
-        <footer id="contato">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h2>SHARK CAPITAL</h2>
-                    <p>Inteligência financeira para quem não pode parar.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <!-- Coluna 4: Contato -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg">Fale Conosco</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-gold mt-0.5"></i>
+                            <span>Av. Paulista, 1000 - Bela Vista<br>São Paulo - SP, 01310-100</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-gold"></i>
+                            <a href="mailto:contato@sharkcapital.com.br" class="hover:text-white transition-colors">contato@sharkcapital.com.br</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-gold"></i>
+                            <span>(11) 99999-9999</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="flex gap-4 mt-6">
+                        <a href="#" class="w-10 h-10 bg-slate-800 rounded flex items-center justify-center hover:bg-gold hover:text-dark transition-all border border-white/10 hover:border-gold group">
+                            <i data-lucide="instagram" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-slate-800 rounded flex items-center justify-center hover:bg-gold hover:text-dark transition-all border border-white/10 hover:border-gold group">
+                            <i data-lucide="linkedin" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-slate-800 rounded flex items-center justify-center hover:bg-gold hover:text-dark transition-all border border-white/10 hover:border-gold group">
+                            <i data-lucide="message-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="footer-info">
-                    <h3>Contato</h3>
-                    <p><i class="fa-solid fa-envelope"></i> contato@sharkcapital.com.br</p>
-                    <p><i class="fa-solid fa-phone"></i> (11) 99999-9999</p>
-                    <p><i class="fa-solid fa-location-dot"></i> São Paulo, SP</p>
+            </div>
+
+            <!-- Disclaimer & Copyright -->
+            <div class="pt-8 border-t border-white/10 text-center space-y-4">
+                <p class="text-xs text-slate-600 max-w-4xl mx-auto leading-relaxed">
+                    A Shark Capital atua como correspondente de seguros e consultoria financeira. As simulações apresentadas neste site são estimativas baseadas em cenários econômicos projetados e não garantem rentabilidade futura. Consulte sempre um especialista para uma análise personalizada do seu perfil.
+                </p>
+                <div class="text-xs text-slate-500 font-medium">
+                    &copy; 2025 Shark Capital Inteligente. Todos os direitos reservados.
                 </div>
             </div>
-            <div class="copyright">
-                &copy; 2025 Shark Capital Inteligente. Todos os direitos reservados.
-            </div>
-        </footer>
-    </main>
-    <script src="script.js"></script>
+        </div>
+    </footer>
+
+    <!-- SCRIPT (Lógica) -->
+    <script>
+        // 1. Inicializar Ícones
+        lucide.createIcons();
+
+        // 2. Ticker Tape (Dados Financeiros)
+        const marketData = [
+            { symbol: 'IPCA', value: '4,50%', label: 'Inflação' },
+            { symbol: 'IGP-M', value: '0,50%', label: 'Correção' },
+            { symbol: 'SELIC', value: '11,25%', label: 'Juros' },
+            { symbol: 'WHOLE LIFE', value: 'IPCA + 3%', label: 'Rendimento Médio' },
+            { symbol: 'INVENTÁRIO', value: '-20%', label: 'Custo Médio' },
+        ];
+
+        const tickerContainer = document.getElementById('ticker-content');
+        const renderTickerItems = () => {
+            const itemsHtml = marketData.map(item => `
+                <div class="flex items-center gap-2 text-xs font-mono font-bold tracking-widest">
+                    <span class="text-white/60">${item.symbol}</span>
+                    <span class="text-gold">${item.value}</span>
+                    <span class="text-[10px] text-slate-500">(${item.label})</span>
+                </div>
+            `).join('');
+            // Repetir para criar loop visual
+            tickerContainer.innerHTML = itemsHtml.repeat(6);
+        };
+        renderTickerItems();
+
+        // 3. Menu Mobile Lógica
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        const toggleMenu = (show) => mobileMenu.classList.toggle('translate-x-full', !show);
+
+        menuBtn.addEventListener('click', () => toggleMenu(true));
+        closeMenuBtn.addEventListener('click', () => toggleMenu(false));
+        mobileLinks.forEach(link => link.addEventListener('click', () => toggleMenu(false)));
+
+        // 4. Header Scroll Effect (Sticky)
+        const header = document.getElementById('main-header');
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('bg-dark/95', 'backdrop-blur-md', 'shadow-xl');
+                navbar.classList.replace('py-6', 'py-4');
+            } else {
+                header.classList.remove('bg-dark/95', 'backdrop-blur-md', 'shadow-xl');
+                navbar.classList.replace('py-4', 'py-6');
+            }
+        });
+
+        // 5. Calculadora e Gráfico (Chart.js)
+        const inpMonthly = document.getElementById('input-monthly');
+        const inpYears = document.getElementById('input-years');
+        const lblMonthly = document.getElementById('val-monthly');
+        const lblYears = document.getElementById('val-years');
+        const lblDiff = document.getElementById('diff-value');
+        const ctx = document.getElementById('financeChart').getContext('2d');
+
+        // Gradiente Dourado para o Gráfico
+        const gradientGold = ctx.createLinearGradient(0, 0, 0, 400);
+        gradientGold.addColorStop(0, 'rgba(212, 175, 55, 0.5)');
+        gradientGold.addColorStop(1, 'rgba(212, 175, 55, 0.0)');
+
+        let financeChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Resgate Estimado (IPCA+)',
+                        data: [],
+                        borderColor: '#D4AF37',
+                        backgroundColor: gradientGold,
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Valor Pago Acumulado',
+                        data: [],
+                        borderColor: '#475569',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        fill: false,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { labels: { color: '#cbd5e1', font: { family: 'Montserrat' } } },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#f1f5f9',
+                        bodyColor: '#cbd5e1',
+                        borderColor: '#334155',
+                        borderWidth: 1,
+                        padding: 10,
+                        displayColors: false,
+                        callbacks: {
+                            label: (context) => context.dataset.label + ': ' + new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y)
+                        }
+                    }
+                },
+                scales: {
+                    x: { grid: { color: '#334155', drawBorder: false }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { color: '#334155', drawBorder: false }, ticks: { color: '#94a3b8', callback: (val) => 'R$ ' + (val/1000) + 'k' } }
+                }
+            }
+        });
+
+        const calculate = () => {
+            const monthly = parseFloat(inpMonthly.value);
+            const years = parseInt(inpYears.value);
+
+            lblMonthly.textContent = monthly.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            lblYears.textContent = `${years} anos`;
+
+            const labels = [];
+            const dataResgate = [];
+            const dataPago = [];
+            
+            // Simulação Simplificada: IPCA + 3% (~8% a.a.) vs Sem juros
+            const rAnual = 0.08; 
+            const rMensal = Math.pow(1 + rAnual, 1/12) - 1;
+            
+            for (let i = 0; i <= years; i++) {
+                labels.push(`Ano ${i}`);
+                if (i === 0) {
+                    dataResgate.push(0);
+                    dataPago.push(0);
+                } else {
+                    let months = i * 12;
+                    let fv = monthly * ((Math.pow(1 + rMensal, months) - 1) / rMensal);
+                    // Penalidade de resgate simulada (Whole Life tem carência)
+                    let surrenderFactor = i < 2 ? 0 : (i < 5 ? 0.7 : (i < 10 ? 0.9 : 1));
+                    
+                    dataResgate.push(fv * surrenderFactor);
+                    dataPago.push(monthly * months);
+                }
+            }
+
+            financeChart.data.labels = labels;
+            financeChart.data.datasets[0].data = dataResgate;
+            financeChart.data.datasets[1].data = dataPago;
+            financeChart.update();
+
+            const finalVal = dataResgate[dataResgate.length - 1];
+            lblDiff.textContent = finalVal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        };
+
+        [inpMonthly, inpYears].forEach(el => el.addEventListener('input', calculate));
+        document.getElementById('btn-update-chart').addEventListener('click', () => {
+            const btn = document.getElementById('btn-update-chart');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<i data-lucide="loader-2" class="animate-spin w-5 h-5"></i> Calculando...`;
+            lucide.createIcons();
+            setTimeout(() => {
+                calculate();
+                btn.innerHTML = originalText;
+                lucide.createIcons();
+            }, 500);
+        });
+        calculate();
+    </script>
 </body>
 </html>
